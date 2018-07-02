@@ -7,7 +7,8 @@
  *                  本脚本适用于
  *    Date: 2017
  *    Version: 0.1版本
- *    Modify Recoder: 
+ *    Modify Recoder:
+ * 不需要手动挂载
  *    
  *   
  */
@@ -75,7 +76,7 @@ namespace SUIFW
         }
 
         /// <summary>
-        /// 调用资源（带对象缓冲技术）
+        /// 调用资源（带对象缓冲技术）,返回一个克隆游戏对象
         /// </summary>
         /// <param name="path"></param>
         /// <param name="isCatch"></param>
@@ -83,7 +84,7 @@ namespace SUIFW
         public GameObject LoadAsset(string path, bool isCatch)
         {
             GameObject goObj = LoadResource<GameObject>(path, isCatch);
-            GameObject goObjClone = GameObject.Instantiate<GameObject>(goObj);
+	        GameObject goObjClone = GameObject.Instantiate<GameObject>(goObj);
             if (goObjClone == null)
             {
                 Debug.LogError(GetType() + "/LoadAsset()/克隆资源不成功，请检查。 path=" + path);

@@ -13,14 +13,12 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -271,6 +269,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="SyntaxTree.Mono.Cecil">
+      <HintPath>Assets/UnityVS/Editor/SyntaxTree.Mono.Cecil.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/Users/风之旅人 宇陌则宁/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
@@ -292,61 +293,21 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/风之旅人 宇陌则宁/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
-    <Reference Include="SyntaxTree.Mono.Cecil">
-      <HintPath>Assets/UnityVS/Editor/SyntaxTree.Mono.Cecil.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\DemoProject\LoginUIForm.cs" />
+    <Compile Include="Assets\Scripts\DemoProject\MajorCityUIForm.cs" />
+    <Compile Include="Assets\Scripts\DemoProject\MarketUIForm.cs" />
+    <Compile Include="Assets\Scripts\DemoProject\SelectHeroUIForm.cs" />
+    <Compile Include="Assets\Scripts\DemoProject\StartProject.cs" />
+    <Compile Include="Assets\Scripts\SUIFW\BaseUIForm.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Config\SysDefine.cs" />
     <Compile Include="Assets\Scripts\SUIFW\EventAndMessage\EventTriggerListener.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Help\ResourcesMgr.cs" />
+    <Compile Include="Assets\Scripts\SUIFW\Help\UnityHelper.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Log\Log.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Resources\MyAtlas\" />
-    <Folder Include="Assets\Scenes\" />
-    <Folder Include="Assets\Scripts\DemoProject\" />
-    <Folder Include="Assets\Scripts\SUIFW\Exception\" />
-    <Folder Include="Assets\Scripts\SUIFW\Localization\" />
-    <Folder Include="Assets\Scripts\SUIFW\MessageCenter\" />
-    <Folder Include="Assets\Scripts\SUIFW\Test\" />
-    <Folder Include="Assets\Test\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Resources\Materials\Background\Fuben1.png" />
-    <Content Include="Assets\Resources\Materials\Background\Fuben2.png" />
-    <Content Include="Assets\Resources\Materials\Background\Fuben3.png" />
-    <Content Include="Assets\Resources\Materials\Background\LogonBG.png" />
-    <Content Include="Assets\Resources\Materials\Background\MainBG.jpg" />
-    <Content Include="Assets\Resources\Materials\Background\SelectHero.png" />
-    <Content Include="Assets\Resources\Materials\Background\SelectLevel2.png" />
-    <Content Include="Assets\Resources\Materials\NPC\cunzhang.png" />
-    <Content Include="Assets\Resources\Materials\NPC\dafashi.png" />
-    <Content Include="Assets\Resources\Materials\NPC\guanka.png" />
-    <Content Include="Assets\Resources\Materials\NPC\lenshentuoer.png" />
-    <Content Include="Assets\Resources\Materials\NPC\yadianna.png" />
-    <Content Include="Assets\Resources\Materials\NPC\yasewang.png" />
-    <Content Include="Assets\Resources\Materials\NPC\zhitianshi.png" />
-    <Content Include="Assets\Resources\Materials\Packages\10LVstaff.png" />
-    <Content Include="Assets\Resources\Materials\Packages\1LVclothes.png" />
-    <Content Include="Assets\Resources\Materials\Packages\1LVpants.png" />
-    <Content Include="Assets\Resources\Materials\Packages\1LVshoes.png" />
-    <Content Include="Assets\Resources\Materials\Packages\1LVstaff.png" />
-    <Content Include="Assets\Resources\Materials\Packages\20LVring.png" />
-    <Content Include="Assets\Resources\Materials\Packages\40LVclothes.png" />
-    <Content Include="Assets\Resources\Materials\Packages\chongwujingpo.png" />
-    <Content Include="Assets\Resources\Materials\Packages\copper_box.png" />
-    <Content Include="Assets\Resources\Materials\Packages\Gem3LV1.png" />
-    <Content Include="Assets\Resources\Materials\Packages\Gem4LV2.png" />
-    <Content Include="Assets\Resources\Materials\Packages\Gem6LV3.png" />
-    <Content Include="Assets\Resources\Materials\Packages\StrengStone.png" />
-    <Content Include="Assets\Resources\Materials\Ui\Common Atlas.png" />
-    <Content Include="Assets\Resources\Materials\Ui\createrole Atlas.png" />
-    <Content Include="Assets\Resources\Materials\Ui\Main Atlas.png" />
-    <Content Include="Assets\Resources\Materials\Ui\mmap.png" />
-    <Content Include="Assets\Resources\Materials\Ui\ui_atlas_battle.png" />
-    <Content Include="Assets\Resources\Materials\Ui\ui_atlas_icon_common.png" />
-    <Content Include="Assets\Resources\Materials\Ui\ui_atlas_img_local_normal.png" />
+    <Compile Include="Assets\Scripts\SUIFW\UIManager.cs" />
+    <Compile Include="Assets\Scripts\SUIFW\UIType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

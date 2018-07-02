@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIFramework", "UIFramework.csproj", "{B4AF1B08-298B-E1D0-5875-9AB3294E2FBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIFramework", "Assembly-CSharp.csproj", "{83E8A11B-210C-F972-3301-076D753C7BC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B4AF1B08-298B-E1D0-5875-9AB3294E2FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4AF1B08-298B-E1D0-5875-9AB3294E2FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4AF1B08-298B-E1D0-5875-9AB3294E2FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4AF1B08-298B-E1D0-5875-9AB3294E2FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83E8A11B-210C-F972-3301-076D753C7BC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83E8A11B-210C-F972-3301-076D753C7BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83E8A11B-210C-F972-3301-076D753C7BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83E8A11B-210C-F972-3301-076D753C7BC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
