@@ -83,9 +83,9 @@
     <Compile Include="Assets\Scripts\SUIFW\MessageCenter\MessageCenter.cs" />
     <Compile Include="Assets\Scripts\SUIFW\UIManager.cs" />
     <Compile Include="Assets\Scripts\SUIFW\UIType.cs" />
-    <Compile Include="Assets\Test\TestJson\BreezeKatana.cs" />
-    <Compile Include="Assets\Test\TestJson\BreezeSaber.cs" />
-    <Compile Include="Assets\Test\TestJson\TestJson.cs" />
+    <Compile Include="Assets\Scripts\Test\TestJson\BreezeKatana.cs" />
+    <Compile Include="Assets\Scripts\Test\TestJson\BreezeSaber.cs" />
+    <Compile Include="Assets\Scripts\Test\TestJson\TestJson.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/【My Document】/My Projects/Unity Projects/UIFW_Demo/UIFramework/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
@@ -345,7 +345,7 @@
     <None Include="Assets\Resources\UIFormsConfig.json" />
     <None Include="Assets\Scenes\Scene_1.unity" />
     <None Include="Assets\Scenes\Test_1.unity" />
-    <None Include="Assets\Test\TestJson\BreezeKatana.json" />
+    <None Include="Assets\Scripts\Test\TestJson\BreezeKatana.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Resources\Materials\Background\Fuben1.png" />
