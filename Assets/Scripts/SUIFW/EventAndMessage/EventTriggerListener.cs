@@ -4,7 +4,13 @@
  *
  * 功能：
  * 实现对于任何游戏对象的事件监听处理。
- *	
+ *
+ * 用法：
+ * //给任意一个UI对象的点击事件注册指定的方法。
+ * if (goButton != null) {
+ *		EventTriggerListener.GetListener(goButton).onClick += Method1;
+ * }
+ *
  */
 using UnityEngine;
 using UnityEngine.EventSystems;

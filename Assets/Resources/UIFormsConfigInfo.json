@@ -1,9 +1,6 @@
 ﻿{
 	"ConfigInfo": [
 		{
-			"Key": "本配置文件说明"
-		},
-		{
 			"Key": "LoginUIForm",
 			"Value": "Prefabs/UI/LoginUIForm"
 		},
@@ -25,8 +22,8 @@
 			"Value": "Prefabs/UI/SelectHeroUIForm"
 		},
 		{
-			"Key": "ItemsInfoUIForm",
-			"Value": "Prefabs/UI/ItemsInfoUIForm"
+			"Key": "ItemInfoUIForm",
+			"Value": "Prefabs/UI/ItemInfoUIForm"
 		},
 		{
 			"Key": "ConfirmForms",

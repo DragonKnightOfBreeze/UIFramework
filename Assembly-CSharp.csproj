@@ -69,9 +69,12 @@
     <Compile Include="Assets\Scripts\DemoProject\SelectHeroUIForm.cs" />
     <Compile Include="Assets\Scripts\DemoProject\StartProject.cs" />
     <Compile Include="Assets\Scripts\SUIFW\BaseUIForm.cs" />
+    <Compile Include="Assets\Scripts\SUIFW\Config\ConfigMgr.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Config\IconfigMgr.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Config\SysDefine.cs" />
     <Compile Include="Assets\Scripts\SUIFW\EventAndMessage\EventTriggerListener.cs" />
+    <Compile Include="Assets\Scripts\SUIFW\EventAndMessage\MessageCenter.cs" />
+    <Compile Include="Assets\Scripts\SUIFW\Exception\JsonAnalysisException.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Help\ResourcesMgr.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Help\UIMaskMgr.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Help\UnityHelper.cs" />

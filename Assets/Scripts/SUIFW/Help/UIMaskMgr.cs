@@ -86,20 +86,24 @@ namespace SUIFW {
 			//按照透明度类型，启用遮罩窗体，并设置透明度
 			//TODO
 			switch (lucenyType) {
+				//TODO为什么不弄个颜色库？
 				case UIFormLucenyType.Lucency:
 					_GoUIMaskPanel.SetActive(true);
-					Color newColor1 = new Color(255/255f,255/255f,255/255f,0/255f);
-					_GoUIMaskPanel.GetComponent<Image>().color = newColor1;
+					_GoUIMaskPanel.GetComponent<Image>().color = new Color(
+						SysDefine.UIMASK_LucencyColor_RGB, SysDefine.UIMASK_LucencyColor_RGB, SysDefine.UIMASK_LucencyColor_RGB, SysDefine.UIMASK_LucencyColor_A
+					);
 					break;
 				case UIFormLucenyType.Translucency:
 					_GoUIMaskPanel.SetActive(true);
-					Color newColor2 = new Color(220/255f, 220/255f, 220/255f, 50/255f);
-					_GoUIMaskPanel.GetComponent<Image>().color = newColor2;
+					_GoUIMaskPanel.GetComponent<Image>().color = new Color(
+						SysDefine.UIMASK_TranslucencyColor_RGB, SysDefine.UIMASK_TranslucencyColor_RGB, SysDefine.UIMASK_TranslucencyColor_RGB, SysDefine.UIMASK_TranslucencyColor_A
+					);
 					break;
 				case UIFormLucenyType.Impenetrable:
 					_GoUIMaskPanel.SetActive(true);
-					Color newColor3 = new Color(50/255f, 50/255f, 50/255f, 80/255f);
-					_GoUIMaskPanel.GetComponent<Image>().color = newColor3;
+					_GoUIMaskPanel.GetComponent<Image>().color = new Color(
+						SysDefine.UIMASK_ImpenetrableColor_RGB, SysDefine.UIMASK_ImpenetrableColor_RGB, SysDefine.UIMASK_ImpenetrableColor_RGB, SysDefine.UIMASK_ImpenetrableColor_A
+					);
 					break;
 				case UIFormLucenyType.Pentrate:
 					if (_GoUIMaskPanel.activeInHierarchy) {

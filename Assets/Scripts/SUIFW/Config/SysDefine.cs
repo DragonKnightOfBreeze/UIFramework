@@ -95,6 +95,14 @@ namespace SUIFW {
 		/// 路径：画布
 		/// </summary>
 		public const string PATH_Canvas = "Prefabs/UI/Canvas";
+		/// <summary>
+		/// 路径：Json配置文件
+		/// </summary>
+		public const string PATH_UIFormsConfigInfo = "UIFormsConfigInfo";
+		/// <summary>
+		/// 路径：Log系统配置文件
+		/// </summary>
+		public const string PATH_SysConfigInfo = "SysConfigInfo";
 
 		/* 标签常量 */
 		/// <summary>
@@ -108,7 +116,20 @@ namespace SUIFW {
 		public const string NODE_PopUp = "PopUp";
 		public const string NODE_UIScripts = "ScriptsMgr";
 
+		/* 遮罩管理器中的透明度常量 */
+		public const float UIMASK_LucencyColor_RGB = 255 / 255f;
+		public const float UIMASK_LucencyColor_A = 0 / 255f;
+
+		public const float UIMASK_TranslucencyColor_RGB = 220 / 255f;
+		public const float UIMASK_TranslucencyColor_A = 50 / 255f;
+
+		public const float UIMASK_ImpenetrableColor_RGB = 50 / 255f;
+		public const float UIMASK_ImpenetrableColor_A = 200 / 255f;
+
 		/* 其他常量 */
+		/// <summary>
+		/// UI摄像机增加的层深
+		/// </summary>
 		public const float ADD_UICameraDepth = 100;
 
 		/* 全局性的方法*/

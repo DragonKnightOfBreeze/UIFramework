@@ -106,16 +106,17 @@ namespace SUIFW {
 			//“根UI窗体”在场景转换的时候，不允许销毁（所有的子结点都不会被销毁）
 			DontDestroyOnLoad(_TraCanvasTransform);
 
-			//TODO
 			//初始化“UI窗体的预设”路径数据
 			//先写简单的，后面使用Json做配置文件来完善
-			if (_DicFormsPaths != null) {
-				_DicFormsPaths.Add("LoginUIForm",@"Prefabs/UI/LoginUIForm");
-				_DicFormsPaths.Add("SelectHeroUIForm",@"Prefabs/UI/SelectHeroUIForm");
-				_DicFormsPaths.Add("MajorCityUIForm", @"Prefabs/UI/MajorCityUIForm");
-				_DicFormsPaths.Add("MarketUIForm", @"Prefabs/UI/MarketUIForm");
-				_DicFormsPaths.Add("HeroInfoUIForm",@"Prefabs/UI/HeroInfoUIForm");
-			}
+			InitUIFormsPathData();
+
+			//if (_DicFormsPaths != null) {
+			//	_DicFormsPaths.Add("LoginUIForm",@"Prefabs/UI/LoginUIForm");
+			//	_DicFormsPaths.Add("SelectHeroUIForm",@"Prefabs/UI/SelectHeroUIForm");
+			//	_DicFormsPaths.Add("MajorCityUIForm", @"Prefabs/UI/MajorCityUIForm");
+			//	_DicFormsPaths.Add("MarketUIForm", @"Prefabs/UI/MarketUIForm");
+			//	_DicFormsPaths.Add("HeroInfoUIForm",@"Prefabs/UI/HeroInfoUIForm");
+			//}
 		}
 
 
@@ -159,7 +160,7 @@ namespace SUIFW {
 					break;
 				//隐藏其他类型
 				case UIFormShowType.HideOther:
-					EnterUIFormAndHideOther(uiFormName);
+					EnterUIForm_HideOther(uiFormName);
 					break;
 			}
 		}
@@ -194,7 +195,7 @@ namespace SUIFW {
 					break;
 				case UIFormShowType.HideOther:
 					//隐藏其他类型
-					ExitUIFormAndShowOther(uiFormName);
+					ExitUIForm_HideOther(uiFormName);
 					break;
 			}
 		}
@@ -338,7 +339,7 @@ namespace SUIFW {
 		/// （打开指定名称的窗体，且隐藏其他窗体）
 		/// </summary>
 		/// <param name="uiFormName">打开的指定窗体的名称</param>
-		private void EnterUIFormAndHideOther(string uiFormName) {
+		private void EnterUIForm_HideOther(string uiFormName) {
 			EnterUIForm(uiFormName);
 
 			//BaseUIForm baseUIForm;      //UI窗体基类
@@ -411,15 +412,15 @@ namespace SUIFW {
 		/// 隐藏其他类型的窗体的退出
 		/// </summary>
 		/// <param name="uiFormName">窗体的名称</param>
-		private void ExitUIFormAndShowOther(string uiFormName) {
+		private void ExitUIForm_HideOther(string uiFormName) {
 			ExitUIForm(uiFormName);
-			//+++把正在显示集合与栈集合中所有的窗体重新显示
-			foreach (BaseUIForm baseUI in _DicCurrentUIForms.Values) {
-				baseUI.Redisplay();
-			}
-			foreach (BaseUIForm stackUI in _StaCurrentUIForms) {
-				stackUI.Redisplay();
-			}
+			////+++把正在显示集合与栈集合中所有的窗体重新显示
+			//foreach (BaseUIForm baseUI in _DicCurrentUIForms.Values) {
+			//	baseUI.Redisplay();
+			//}
+			//foreach (BaseUIForm stackUI in _StaCurrentUIForms) {
+			//	stackUI.Redisplay();
+			//}
 		}
 
 
@@ -438,6 +439,16 @@ namespace SUIFW {
 			return false;
 		}
 
+
+		/// <summary>
+		/// 初始化配置文件路径
+		/// </summary>
+		private void InitUIFormsPathData(){
+			IconfigMgr configMgr = new ConfigMgr(SysDefine.PATH_UIFormsConfigInfo);
+			_DicFormsPaths = configMgr.AppSetting;
+		}
+
+		
 		#endregion
 
 
