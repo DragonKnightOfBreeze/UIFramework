@@ -27,7 +27,7 @@ namespace SUIFW {
 	public class UnityHelper : MonoBehaviour {
 
 		/// <summary>
-		/// 帮助公共方法：递归查找子节点对象
+		/// 公共方法：递归查找子节点对象
 		/// </summary>
 		/// <param name="goParent">父对象</param>
 		/// <param name="childName">指定的子对象名字</param>
@@ -37,24 +37,20 @@ namespace SUIFW {
 			Transform searchTra = goParent.transform.Find(childName);	
 			//如果还没有查找到
 			if (searchTra == null) {
-				//如果还有子节点
-				if (goParent.transform.childCount != 0) {
+				////如果还有子节点
+				//if (goParent.transform.childCount != 0) {
 					foreach (Transform tra in goParent.transform) {
-						FindChildNode(tra.gameObject, childName);
-						//searchTra = FindChildNode(tra.gameObject, childName);
-						//if (searchTra != null) {
-						//	return searchTra;
-						//}
+						searchTra =  FindChildNode(tra.gameObject, childName);
 					}
-				}
-				return null;
+				//}
+				//return null;
 			}
 			return searchTra;
 		}
 
 
 		/// <summary>
-		/// 帮助公共方法：获取子节点的脚本
+		/// 公共方法：获取子节点的脚本
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="goParent">父对象</param>
@@ -72,22 +68,22 @@ namespace SUIFW {
 
 
 		/// <summary>
-		/// 帮助公共方法：向子节点添加脚本
+		/// 公共方法：向子节点添加脚本
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="goParent"></param>
 		/// <param name="childName"></param>
 		/// <returns></returns>
-		public static T AddScriptsToChild<T>(GameObject goParent, string childName)
+		public static T AddComponentToChild<T>(GameObject goParent, string childName)
 		where T : Component{
 			//查找指定的子节点
 			Transform searchTra = FindChildNode(goParent, childName);
-			//如果查找成功，则考虑是否已经有相同的脚本，，否则直接添加
+			//如果查找成功，则考虑是否已经有相同的脚本，否则直接添加
 			if (searchTra != null) {
 				//如果已经有相同的脚本，则删除
 				T[] componentArray = searchTra.GetComponents<T>();
 				foreach (var script in componentArray) {
-					if (script != null) {
+					if (script.name == childName) {
 						Destroy(script);
 					}
 				}
@@ -97,6 +93,17 @@ namespace SUIFW {
 			return null;
 		}
 
+		/// <summary>
+		/// 公共方法：给子节点添加父对象
+		/// </summary>
+		/// <param name="parent">父对象的方位</param>
+		/// <param name="child">子对象的方位</param>
+		public static void AddChildNodeToParentNode(Transform parent,Transform child){
+			child.SetParent(parent,false);	//按照局部坐标
+			child.localPosition = Vector3.zero;
+			child.localScale = Vector3.one;
+			child.localEulerAngles = Vector3.zero;
+		}
 
 
 	}

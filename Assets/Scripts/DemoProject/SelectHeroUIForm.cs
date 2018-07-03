@@ -23,26 +23,33 @@ using UnityEngine;
 
 namespace DemoProject {
 	///<summary>
-	///类：选择英雄窗体管理
+	///脚本：选择英雄窗体管理
 	///</summary>
 	public class SelectHeroUIForm : BaseUIForm {
 
 		public void Awake(){
 			//窗体的性质
-			base.CurrentUIType.UIForms_ShowType = UIFormShowType.HideOther;
+			base.CurrentUIType.UIForms_ShowType = UIFormShowType.ReverseChange;
 
-			//注册事件
-			//TODO
+			//注册事件（进入主城）
+			RigisterButtonObjectEvent("Btn_Confirm",p=> {
+				OpenUIForm(ProjectConst.UIFORM_MajorCity);
+				OpenUIForm(ProjectConst.UIFORM_HeroInfo);
+			});
+			//注册事件（返回到登录窗体）
+			RigisterButtonObjectEvent("Btn_Close", p=> {
+				CloseUIForm();
+			});
 		}
 
 
-		public void Start(){
+		//public void Start(){
 
-			//显示“UI管理器”内部的状态
-			print("所有窗体集合中的数量："+UIManager.GetInstance().ShowAllUIFormCount());
-			print("当前窗体集合中的数量：" + UIManager.GetInstance().ShowCurrentUIFormCount());
-			print("栈窗体集合中的数量：" + UIManager.GetInstance().ShowCurrentStackUIFormCount());
-		}
+			////显示“UI管理器”内部的状态
+			//print("所有窗体集合中的数量："+UIManager.GetInstance().ShowAllUIFormCount());
+			//print("当前窗体集合中的数量：" + UIManager.GetInstance().ShowCurrentUIFormCount());
+			//print("栈窗体集合中的数量：" + UIManager.GetInstance().ShowCurrentStackUIFormCount());
+		//}
 
 	}
 }

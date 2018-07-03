@@ -1,0 +1,36 @@
+﻿{
+	"ConfigInfo": [
+		{
+			"Key": "本配置文件说明"
+		},
+		{
+			"Key": "LoginUIForm",
+			"Value": "Prefabs/UI/LoginUIForm"
+		},
+		{
+			"Key": "SelectHeroUIForm",
+			"Value": "Prefabs/UI/SelectHeroUIForm"
+		},
+		{
+			"Key": "HeroInfoUIForm",
+			"Value": "Prefabs/UI/HeroInfoUIForm"
+		},
+
+		{
+			"Key": "MajorCityUIForm",
+			"Value": "Prefabs/UI/SelectHeroUIForm"
+		},
+		{
+			"Key": "MarketUIForm",
+			"Value": "Prefabs/UI/SelectHeroUIForm"
+		},
+		{
+			"Key": "ItemsInfoUIForm",
+			"Value": "Prefabs/UI/ItemsInfoUIForm"
+		},
+		{
+			"Key": "ConfirmForms",
+			"Value": "Prefabs/UI/ItemsInfoUIForm"
+		}
+	]
+}

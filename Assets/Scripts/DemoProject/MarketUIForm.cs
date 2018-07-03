@@ -1,6 +1,6 @@
 ﻿/***
  * 标题：
- * 商城窗体
+ * 商城窗体管理
  * 
  * 功能：
  * 
@@ -23,11 +23,18 @@ using UnityEngine;
 
 namespace DemoProject {
 	///<summary>
-	///类：商城窗体管理
+	///脚本：商城窗体管理
 	///</summary>
 	public class MarketUIForm : BaseUIForm {
 
-		void Start() {
+		void Awake(){
+			//窗体性质
+			CurrentUIType.UIForms_Type = UIFormType.PopUp;
+			CurrentUIType.UIForms_ShowType = UIFormShowType.ReverseChange;
+			CurrentUIType.UIForms_LucencyType = UIFormLucenyType.Translucency;
+
+			//注册事件（退出按钮）
+			RigisterButtonObjectEvent("Btn_Close",p=>CloseUIForm());
 
 		}
 

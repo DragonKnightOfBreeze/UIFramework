@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 224811797589793640}
   - component: {fileID: 222890515878721872}
   - component: {fileID: 114563096064378754}
+  - component: {fileID: 114461329478496376}
   m_Layer: 5
   m_Name: HeroInfoUIForm
   m_TagString: Untagged
@@ -106,6 +107,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114461329478496376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493710953351298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8305d899f946677439b7f4a705ca94ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114501617183597188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,8 +282,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000061035, y: -70.600006}
-  m_SizeDelta: {x: 1024, y: 141.2}
+  m_AnchoredPosition: {x: -256.00003, y: -70.600006}
+  m_SizeDelta: {x: 512, y: 141.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224848499115432820
 RectTransform:

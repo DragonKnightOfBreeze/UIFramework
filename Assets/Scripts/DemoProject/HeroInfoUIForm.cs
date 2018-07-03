@@ -1,6 +1,6 @@
 ﻿/***
  * 标题：
- * 
+ * 英雄信息显示窗体
  * 
  * 功能：
  * 
@@ -23,13 +23,15 @@ using UnityEngine;
 
 namespace DemoProject {
 	///<summary>
-	///类：开始项目
+	///脚本：英雄信息显示窗体管理
 	///</summary>
-	public class StartProject : MonoBehaviour {
+	public class HeroInfoUIForm : BaseUIForm {
 
-		void Start() {
-			//加载登录窗体
-			UIManager.GetInstance().OpenUIForm(ProjectConst.UIFORM_Login);
+		public void Awake() {
+			//窗体性质
+			base.CurrentUIType.UIForms_Type = UIFormType.Fixed;	//固定在主窗体上面显示
+
+			//注册事件
 		}
 
 

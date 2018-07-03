@@ -89,33 +89,32 @@ namespace SUIFW {
 
 	#endregion 【系统常量】
 
-	public class SysDefine : MonoBehaviour {
+	public static class SysDefine {
 		/* 路径常量 */
 		/// <summary>
 		/// 路径：画布
 		/// </summary>
 		public const string PATH_Canvas = "Prefabs/UI/Canvas";
 
-		public const string PATH_LoginUIForm = "";
-		public const string PATH_ = "";
-
 		/* 标签常量 */
-
 		/// <summary>
 		/// 标签：画布
 		/// </summary>
 		public const string TAG_Canvas = "_Canvas";
-		/// <summary>
-		/// 标签：登录窗体
-		/// </summary>
-		public const string TAG_LoginUIForm = "_LoginUIForm";
+		
+		/* 节点常量 */
+		public const string NODE_Normal = "Normal";
+		public const string NODE_Fixed = "Fixed";
+		public const string NODE_PopUp = "PopUp";
+		public const string NODE_UIScripts = "ScriptsMgr";
+
+		/* 其他常量 */
+		public const float ADD_UICameraDepth = 100;
 
 		/* 全局性的方法*/
-
 		//TODO
 
 		/* 委托的定义 */
-
 		//TODO
 
 	}

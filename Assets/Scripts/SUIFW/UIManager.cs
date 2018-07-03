@@ -4,7 +4,7 @@
  * 
  * 功能：
  * 是整个UI框架的核心，用户通过本脚本，来实现框架绝大多数的功能实现。
- *不需要手动挂载
+ * 不需要手动挂载
  *
  * 思路：
  * 
@@ -37,9 +37,9 @@ namespace SUIFW {
 		// UI窗体预设路径（参数：窗体预设名称，窗体预设路径）
 		private Dictionary<string, string> _DicFormsPaths;
 		// 缓存所有UI窗体
-		private Dictionary<string, BaseUIForm> _dicAllUIForms;
+		private Dictionary<string, BaseUIForm> _DicAllUIForms;
 		// 当前显示的UI窗体
-		private Dictionary<string, BaseUIForm> _dicCurrentShowUIForms;
+		private Dictionary<string, BaseUIForm> _DicCurrentUIForms;
 
 		//定义栈集合，显示当前所有“反向切换”的窗体类型
 		//管理“反向切换”类型的窗体
@@ -81,8 +81,8 @@ namespace SUIFW {
 		/// </summary>
 		public void Awake(){
 			//字段初始化
-			_dicAllUIForms = new Dictionary<string, BaseUIForm>();
-			_dicCurrentShowUIForms = new Dictionary<string, BaseUIForm>();
+			_DicAllUIForms = new Dictionary<string, BaseUIForm>();
+			_DicCurrentUIForms = new Dictionary<string, BaseUIForm>();
 			_DicFormsPaths = new Dictionary<string, string>();
 
 			_StaCurrentUIForms = new Stack<BaseUIForm>();
@@ -94,15 +94,11 @@ namespace SUIFW {
 
 			//UI根节点
 			_TraCanvasTransform = GameObject.FindGameObjectWithTag(SysDefine.TAG_Canvas).transform;
-			//全屏幕显示的节点
-			_TraNormal = _TraCanvasTransform.Find("Normal");
-			//固定显示的节点
-			_TraFixed = _TraCanvasTransform.Find("Fixed");
-			//弹出节点
-			_TraPopUp = _TraCanvasTransform.Find("PopUp");
-			//UI管理脚本的节点
-			_TraUIScripts = _TraCanvasTransform.Find("_ScriptMgr");
 
+			_TraNormal = UnityHelper.FindChildNode(_TraCanvasTransform.gameObject, SysDefine.NODE_Normal);
+			_TraFixed = UnityHelper.FindChildNode(_TraCanvasTransform.gameObject, SysDefine.NODE_Fixed);
+			_TraPopUp = UnityHelper.FindChildNode(_TraCanvasTransform.gameObject, SysDefine.NODE_PopUp);
+			_TraUIScripts = UnityHelper.FindChildNode(_TraCanvasTransform.gameObject, SysDefine.NODE_UIScripts);
 
 			//把本脚本作为脚本管理器游戏对象的子结点（动态创建GO？）（非世界坐标系）
 			this.gameObject.transform.SetParent(_TraUIScripts, false);
@@ -115,9 +111,10 @@ namespace SUIFW {
 			//先写简单的，后面使用Json做配置文件来完善
 			if (_DicFormsPaths != null) {
 				_DicFormsPaths.Add("LoginUIForm",@"Prefabs/UI/LoginUIForm");
-				_DicFormsPaths.Add("SelectHeroUIForm",@"Prefabs/UI/SelectUIForm");
+				_DicFormsPaths.Add("SelectHeroUIForm",@"Prefabs/UI/SelectHeroUIForm");
 				_DicFormsPaths.Add("MajorCityUIForm", @"Prefabs/UI/MajorCityUIForm");
 				_DicFormsPaths.Add("MarketUIForm", @"Prefabs/UI/MarketUIForm");
+				_DicFormsPaths.Add("HeroInfoUIForm",@"Prefabs/UI/HeroInfoUIForm");
 			}
 		}
 
@@ -125,97 +122,82 @@ namespace SUIFW {
 
 		#region 【公共方法】
 
-
 		/// <summary>
-		/// 显示（打开）UI窗体
+		/// 公共方法：打开指定名称的窗体
 		/// 功能：
 		/// 1.加载与判断指定的UI窗体的名称，加载到“所有UI窗体缓冲集合”中。
 		/// 2.根据不同的UI窗体的显示模式，分别作不同的加载处理。
 		/// </summary>
-		/// <param name="uiFormName">UI窗体预设的名称</param>
-		public void ShowUIForms(string uiFormName){
-			BaseUIForm baseUIForms = null;     //UI窗体基类
-
+		/// <param name="uiFormName">窗体的名称</param>
+		public void OpenUIForm(string uiFormName){
 			//参数检查
-			if (string.IsNullOrEmpty((uiFormName))) {
+			if (string.IsNullOrEmpty(uiFormName))
 				return;
-			}
+
+			BaseUIForm baseUIForm = null;     //UI窗体基类
 
 			//根据UI窗体的名称加载到“UI窗体缓冲集合”中
-			baseUIForms = LoadFormsToAllUIFormsCache((uiFormName));
-			//参数检查
-			if (baseUIForms == null)
+			baseUIForm = LoadUIFormToAll(uiFormName);
+			if (baseUIForm == null)
 				return;
 
 			//是否清空栈集合中的数据的判断
-			if (baseUIForms.CurrentUIType.IsCleanStack) {
+			if (baseUIForm.CurrentUIType.IsCleanStack) {
 				CleanStackArray();
 			}
 			
-
-
 			//作不同的加载处理
-			switch (baseUIForms.CurrentUIType.UIForms_ShowType) {
-				//普通显示窗口模式
+			//TODO
+			switch (baseUIForm.CurrentUIType.UIForms_ShowType) {
+				//普通类型
 				case UIFormShowType.Normal:
-					//把当前窗体加载到“当前窗体”集合中
-					//TODO
-					baseUIForms.Display();
+					EnterUIForm(uiFormName);
 					break;
-
-				//需要“反向切换”的窗口模式
+				//反向切换类型
 				case UIFormShowType.ReverseChange:
-					//TODO
-					
+					PushUIForm(uiFormName);
 					break;
-
-				//“隐藏其他”窗口模式
+				//隐藏其他类型
 				case UIFormShowType.HideOther:
-					//TODO
-					
+					EnterUIFormAndHideOther(uiFormName);
 					break;
-
-				default:
-					throw new ArgumentOutOfRangeException();
 			}
 		}
+
 
 		/// <summary>
-		/// 关闭（返回上一个）窗体
+		/// 公共方法：关闭指定名称的窗体
 		/// </summary>
-		/// <param name="uiFormName"></param>
-		public void CloseUIForms(string uiFormName){
-			BaseUIForm baseUIForm;		//窗体基类
-
+		/// <param name="uiFormName">窗体的名称</param>
+		public void CloseUIForm(string uiFormName){
 			//参数检查
-			if (string.IsNullOrEmpty(uiFormName)) {
+			if (string.IsNullOrEmpty(uiFormName))
 				return;
-			}
+
+			BaseUIForm baseUIFormFromAll;		//窗体基类
+
 			//“所有UI窗体”集合中，如果没有记录，则直接返回
-			_dicAllUIForms.TryGetValue(uiFormName, out baseUIForm);
-			if (baseUIForm == null) {
+			//不应该是当前显示的吗？
+			_DicAllUIForms.TryGetValue(uiFormName, out baseUIFormFromAll);
+			if (baseUIFormFromAll == null) 
 				return;
-			}
 
 			//根据不同的显示类型，分别做不同的关闭处理
-			switch (baseUIForm.CurrentUIType.UIForms_ShowType) {
+			switch (baseUIFormFromAll.CurrentUIType.UIForms_ShowType) {
 				case UIFormShowType.Normal:
-					//普通窗体的关闭
-					ExitUIForms(uiFormName);
+					//普通类型
+					ExitUIForm(uiFormName);
 					break;
 				case UIFormShowType.ReverseChange:
-					//反向切换窗体的关闭
+					//反向切换类型
+					PopUIForm();
 					break;
 				case UIFormShowType.HideOther:
-					//隐藏其他窗体的关闭
+					//隐藏其他类型
+					ExitUIFormAndShowOther(uiFormName);
 					break;
-				default:
-					throw new ArgumentOutOfRangeException();
 			}
-
 		}
-
-
 
 		#endregion
 
@@ -224,11 +206,9 @@ namespace SUIFW {
 		#region 【私有方法】
 
 		/// <summary>
-		/// 私有方法：初始化加载（根UI窗体）Canvas预设
+		/// 初始化加载（根UI窗体）Canvas预设
 		/// </summary>
 		private void InitRootCanvasLoading() {
-			//不使用Unity自带的加载资源方法
-			//Resource.Load();
 			//使用对象缓冲管理器脚本
 			ResourcesMgr.GetInstance().LoadAsset(SysDefine.PATH_Canvas, false);
 		}
@@ -238,19 +218,17 @@ namespace SUIFW {
 		/// 根据UI窗体的名称，加载到所有UI窗体的缓存集合中
 		/// 功能：检查“所有UI窗体”集合中，是否已经加载过，否则才加载
 		/// </summary>
-		/// <param name="uiFormName">UI窗体预设名称</param>
+		/// <param name="uiFormName">窗体的名称</param>
 		/// <returns></returns>
-		private BaseUIForm LoadFormsToAllUIFormsCache(string uiFormName){
-			BaseUIForm baseUIResult = null;	//加载的返回UI窗体的基类
-			//如果有，就直接返回，跳过接下来的为空检查
-			_dicAllUIForms.TryGetValue(uiFormName, out baseUIResult);
-			if (baseUIResult == null) {
-				//加载指定名称的“UI窗体
-				baseUIResult = LoadUIForm(uiFormName);
-				//
-				
+		private BaseUIForm LoadUIFormToAll(string uiFormName){
+			BaseUIForm baseUIForm = null;	//加载的返回UI窗体的基类
+			_DicAllUIForms.TryGetValue(uiFormName, out baseUIForm);
+			//如果已有，就直接返回null，否则做一次加载
+			if (baseUIForm == null) {
+				//加载指定名称的“UI窗体，并放到所有UI窗体的缓存集合中
+				baseUIForm = LoadUIForm(uiFormName);
 			}
-			return baseUIResult;
+			return baseUIForm;
 		}
 
 
@@ -261,83 +239,81 @@ namespace SUIFW {
 		/// 2.根据不同预设克隆体中带的脚本中不同的“位置信息”，加载到根窗体下不同的节点。
 		/// 3.隐藏刚创建的UI克隆体（不知道刚创建时是否显示）。
 		/// 4.把克隆体，加载到“所有UI窗体”缓存集合中
-		/// /// </summary>
-		/// <param name="uiFormName">UI窗体名称</param>
+		/// </summary>
+		/// <param name="uiFormName">窗体的名称</param>
 		private BaseUIForm LoadUIForm(string uiFormName){
-			string strUIFormPaths = null;	//UI窗体查询路径
-			GameObject goCloneUIPrefabs = null;	//得到创建的UI克隆体预设
+			string strUIFormPath = null;	//UI窗体查询路径
+			GameObject goCloneUIPrefab = null;	//得到创建的UI克隆体预设
 			BaseUIForm baseUIForm;  //窗体基类
 
 			//根据“UI窗体名称”，得到对应的加载路径
-			_DicFormsPaths.TryGetValue(uiFormName, out strUIFormPaths);
+			_DicFormsPaths.TryGetValue(uiFormName, out strUIFormPath);
 			//根据“UI窗体名称”，加载预设克隆体
-			if (!string.IsNullOrEmpty(strUIFormPaths)) {
-				goCloneUIPrefabs = ResourcesMgr.GetInstance().LoadAsset(strUIFormPaths, false);
+			if (!string.IsNullOrEmpty(strUIFormPath)) {
+				goCloneUIPrefab = ResourcesMgr.GetInstance().LoadAsset(strUIFormPath, false);
 			}
 
 			//设置“UI克隆体”的父节点（根据克隆体中带的脚本中的不同位置信息）
-			if (_TraCanvasTransform != null && goCloneUIPrefabs != null) {
+			if (_TraCanvasTransform != null && goCloneUIPrefab != null) {
 				//利用了C#的动态多态性，加载的实际上是具体的子类
-				baseUIForm = goCloneUIPrefabs.GetComponent<BaseUIForm>();
+				baseUIForm = goCloneUIPrefab.GetComponent<BaseUIForm>();
 
 				if (baseUIForm != null) {
 					//switch当前位置信息
 					switch (baseUIForm.CurrentUIType.UIForms_Type) {
 						case UIFormType.Normal: //普通窗体结点
-							goCloneUIPrefabs.transform.SetParent(_TraNormal, false);
+							goCloneUIPrefab.transform.SetParent(_TraNormal, false);
 							break;
 						case UIFormType.Fixed: //固定窗体结点
-							goCloneUIPrefabs.transform.SetParent(_TraFixed, false);
+							goCloneUIPrefab.transform.SetParent(_TraFixed, false);
 							break;
 						case UIFormType.PopUp: //弹出窗体结点
-							goCloneUIPrefabs.transform.SetParent(_TraPopUp, false);
+							goCloneUIPrefab.transform.SetParent(_TraPopUp, false);
 							break;
 					}
 
 					//设置克隆体的隐藏
-					goCloneUIPrefabs.SetActive(false);
-
+					goCloneUIPrefab.SetActive(false);
 					//把克隆体，加载到“所有UI窗体”缓存集合中
-					_dicAllUIForms.Add(uiFormName, baseUIForm);
-
+					_DicAllUIForms.Add(uiFormName, baseUIForm);
 					return baseUIForm;
 				}
-		
-				Debug.LogWarning("baseUIForm!，请写确认窗体预设对象中是否加载了baseUIForm的子类脚本！");
+				Debug.LogWarning("baseUIForm == null!，请写确认窗体预设对象中是否加载了baseUIForm的子类脚本！");
 			}
-
 			Debug.LogWarning("_TraCanvasTransform == null 或者 goCloneUIPrefabs == null！" + "\tuiFormName：" +uiFormName);
 			return null;
 		}
 
 
 		/// <summary>
-		/// 把当前窗体加载到“当前窗体”集合中
-		/// 这个方法是在哪里调用的？
+		/// 普通类型的窗体的进入
+		/// （把当前窗体加载到“当前窗体”集合中，显示指定名称的窗体）
 		/// </summary>
-		private void LoadUIToCurrentCache(string uiFormName){
+		/// <param name="uiFormName">窗体的名称</param>
+		private void EnterUIForm(string uiFormName){
 			BaseUIForm baseUIForm;					//UI窗体基类
-			BaseUIForm baseUIFormFromAllCache;		//从“所有UI窗体”集合中得到的窗体
+			BaseUIForm baseUIFormFromAll;		//从“所有UI窗体”集合中得到的窗体
 
 			//如果“正在显示”的集合中，存在整个UI窗体，则直接返回
-			_dicCurrentShowUIForms.TryGetValue(uiFormName, out baseUIForm);
-			if (baseUIForm != null) {
+			_DicCurrentUIForms.TryGetValue(uiFormName, out baseUIForm);
+			if (baseUIForm != null) 
 				return;
-			}
 
-			//把当前窗体，加载到“正在显示”的集合中
-			_dicAllUIForms.TryGetValue(uiFormName, out baseUIFormFromAllCache);
-			if (baseUIFormFromAllCache != null) {
-				_dicCurrentShowUIForms.Add(uiFormName,baseUIFormFromAllCache);
-				baseUIFormFromAllCache.Display();
-			}
+			//把当前窗体，加载到“正在显示”的集合中，然后显示
+			_DicAllUIForms.TryGetValue(uiFormName, out baseUIFormFromAll);
+			if (baseUIFormFromAll == null)
+				return;
+			_DicCurrentUIForms.Add(uiFormName,baseUIFormFromAll);
+			baseUIFormFromAll.Display();
 		}
 
 
 		/// <summary>
-		/// UI窗体的入栈
+		/// 反向切换类型的窗体的进入
+		/// （UI窗体的入栈，显示指定名称的窗体）
 		/// </summary>
-		private void PushUIFormToStack(string uiFormName){
+		/// <param name="uiFormName">窗体的名称</param>
+		private void PushUIForm(string uiFormName){
 			BaseUIForm baseUIForm;		//UI窗体
 
 			//判断栈集合中，是否有其他的窗体，有则进行冻结处理
@@ -345,43 +321,74 @@ namespace SUIFW {
 				BaseUIForm topUIForm = _StaCurrentUIForms.Peek();
 				topUIForm.Freeze();
 			}
-			//判断“UI所有窗体”集合是否有指定的UI窗体，有则处理
-			_dicAllUIForms.TryGetValue(uiFormName, out baseUIForm);
-			if (baseUIForm != null) {
-				//当前窗口显示状态
-				baseUIForm.Display();
-				//把指定的UI窗体入栈
-				_StaCurrentUIForms.Push(baseUIForm);
-			}
-			else {
-				Debug.LogWarning("baseUIForm == null"+ "\t请检查");
-			}
+			//判断“所有UI窗体”集合是否有指定的UI窗体，有则处理
+			_DicAllUIForms.TryGetValue(uiFormName, out baseUIForm);
+			if (baseUIForm == null)
+				return;
+				
+			//把指定的UI窗体入栈
+			_StaCurrentUIForms.Push(baseUIForm);
+			//显示窗体
+			baseUIForm.Display();
 		}
 
 
 		/// <summary>
-		/// 退出指定UI窗体
+		/// 隐藏其他类型的窗体的进入
+		/// （打开指定名称的窗体，且隐藏其他窗体）
+		/// </summary>
+		/// <param name="uiFormName">打开的指定窗体的名称</param>
+		private void EnterUIFormAndHideOther(string uiFormName) {
+			EnterUIForm(uiFormName);
+
+			//BaseUIForm baseUIForm;      //UI窗体基类
+			//BaseUIForm baseUIFormFromAll;   //从集合中得到的UI窗体基类
+
+			////如果“正在显示”的集合中，存在整个UI窗体，则直接返回
+			//_DicCurrentUIForms.TryGetValue(uiFormName, out baseUIForm);
+			//if (baseUIForm == null)
+			//	return;
+
+			//+++把正在显示集合与栈集合中所有的窗体隐藏
+			foreach (BaseUIForm baseUI in _DicCurrentUIForms.Values) {
+				baseUI.Hiding();
+			}
+			foreach (BaseUIForm stackUI in _StaCurrentUIForms) {
+				stackUI.Hiding();
+			}
+
+			////把当前窗体，加载到“正在显示”的集合中，然后显示
+			//_DicAllUIForms.TryGetValue(uiFormName, out baseUIFormFromAll);
+			//if (baseUIFormFromAll == null)
+			//	return;
+			//_DicCurrentUIForms.Add(uiFormName, baseUIFormFromAll);
+			//baseUIFormFromAll.Display();
+		}
+
+
+		/// <summary>
+		/// 普通类型的窗体的退出
 		/// </summary>
 		/// <param name="uiFormName"></param>
-		private void ExitUIForms(string uiFormName){
+		private void ExitUIForm(string uiFormName){
 			BaseUIForm baseUIForm;		//窗体基类
 
 			//“正在显示集合”中如果没有记录，则直接返回。
-			_dicCurrentShowUIForms.TryGetValue(uiFormName, out baseUIForm);
-			if (baseUIForm == null) {
+			_DicCurrentUIForms.TryGetValue(uiFormName, out baseUIForm);
+			if (baseUIForm == null) 
 				return;
-			}
-
+		
 			//指定窗体标记为“隐藏状态”，且从“正在显示集合”中移除
+			_DicCurrentUIForms.Remove(uiFormName);
 			baseUIForm.Hiding();
-			_dicCurrentShowUIForms.Remove(uiFormName);
 		}
 
 
 		/// <summary>
-		///（“反向切换”属性）窗体的出栈逻辑 
+		/// 反向切换类型的窗体的退出
+		/// （反向切换类型的窗体的出栈，退出这个窗体）
 		/// </summary>
-		private void PopUIForms(){
+		private void PopUIForm(){
 			if (_StaCurrentUIForms.Count > 1) {
 				//出栈处理
 				BaseUIForm topUIForm = _StaCurrentUIForms.Pop();
@@ -399,44 +406,28 @@ namespace SUIFW {
 			}
 		}
 
+
 		/// <summary>
-		/// 打开窗体，且隐藏其他窗体
+		/// 隐藏其他类型的窗体的退出
 		/// </summary>
-		/// <param name="uiFormName">打开的指定窗体的名称</param>
-		private void EnterUIFormsAndHideOther(string uiFormName){
-			BaseUIForm baseUIForm;		//UI窗体基类
-			BaseUIForm baseUIFormFromAll;	//从集合中得到的UI窗体基类
-
-			//参数检查
-			if (string.IsNullOrEmpty(uiFormName))
-				return;
-			_dicAllUIForms.TryGetValue(uiFormName, out baseUIForm);
-			//如果没有才直接返回
-			if (baseUIForm != null)
-				return;
-
-			//把“正在显示集合”与栈集合中所有的窗体隐藏
-			foreach (BaseUIForm baseUI in _dicCurrentShowUIForms.Values) {
-				baseUI.Hiding();
+		/// <param name="uiFormName">窗体的名称</param>
+		private void ExitUIFormAndShowOther(string uiFormName) {
+			ExitUIForm(uiFormName);
+			//+++把正在显示集合与栈集合中所有的窗体重新显示
+			foreach (BaseUIForm baseUI in _DicCurrentUIForms.Values) {
+				baseUI.Redisplay();
 			}
-			foreach (BaseUIForm staUI in _StaCurrentUIForms) {
-				staUI.Hiding();
+			foreach (BaseUIForm stackUI in _StaCurrentUIForms) {
+				stackUI.Redisplay();
 			}
-
-			//把当前窗体加入到“正在显示窗体”的集合中，且做显示处理
-			_dicAllUIForms.TryGetValue(uiFormName, out baseUIFormFromAll);
-			if (baseUIFormFromAll == null)
-				return;
-			_dicCurrentShowUIForms.Add(uiFormName,baseUIFormFromAll);
-			//窗体显示
-			baseUIFormFromAll.Display();
-
 		}
+
+
 
 		/// <summary>
 		/// 清空栈集合中的数据
 		/// </summary>
-		/// <returns>操作成功</returns>
+		/// <returns>true：操作成功</returns>
 		private bool CleanStackArray() {
 			if (_StaCurrentUIForms != null && _StaCurrentUIForms.Count > 0) {
 				//清空栈集合
@@ -457,8 +448,8 @@ namespace SUIFW {
 		/// </summary>
 		/// <returns></returns>
 		public int ShowAllUIFormCount(){
-			if (_dicAllUIForms != null) {
-				return _dicAllUIForms.Count;
+			if (_DicAllUIForms != null) {
+				return _DicAllUIForms.Count;
 			}
 			return 0;
 		}
@@ -468,8 +459,8 @@ namespace SUIFW {
 		/// </summary>
 		/// <returns></returns>
 		public int ShowCurrentUIFormCount(){
-			if (_dicCurrentShowUIForms != null) {
-				return _dicCurrentShowUIForms.Count;
+			if (_DicCurrentUIForms != null) {
+				return _DicCurrentUIForms.Count;
 			}
 			return 0;
 		}

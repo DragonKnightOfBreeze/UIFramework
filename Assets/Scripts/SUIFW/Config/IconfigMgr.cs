@@ -1,6 +1,6 @@
 ﻿/***
  * 标题：
- * 
+ * 通用配置管理器接口
  * 
  * 功能：
  * 
@@ -15,21 +15,19 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using SUIFW;
 using UnityEngine;
 
 //using Kernel;
 //using Global;
 
-namespace DemoProject {
+namespace Assets.Scripts.SUIFW.Config {
 	///<summary>
-	///类：开始项目
+	///
 	///</summary>
-	public class StartProject : MonoBehaviour {
+	public class IconfigMgr : MonoBehaviour {
 
 		void Start() {
-			//加载登录窗体
-			UIManager.GetInstance().OpenUIForm(ProjectConst.UIFORM_Login);
+
 		}
 
 

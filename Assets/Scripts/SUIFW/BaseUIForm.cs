@@ -27,7 +27,7 @@ using UnityEngine;
 
 namespace SUIFW {
 	///<summary>
-	///各种UI窗体的父类
+	///脚本：各种UI窗体的父类
 	///</summary>
 	public class BaseUIForm : MonoBehaviour {
 
@@ -47,13 +47,17 @@ namespace SUIFW {
 
 
 
-		#region 【虚公共方法】
+		#region 【窗体的四种状态】
 
 		/// <summary>
 		/// 虚公共方法：显示状态
 		/// </summary>
 		public virtual void Display() {
 			this.gameObject.SetActive(true);
+			//设置模态窗体调用，必须是弹出窗体
+			if (_CurrentUIType.UIForms_Type == UIFormType.PopUp) {
+				UIMaskMgr.GetInstance().SetMaskWindow(this.gameObject,_CurrentUIType.UIForms_LucencyType);
+			}
 		}
 
 		/// <summary>
@@ -61,6 +65,10 @@ namespace SUIFW {
 		/// </summary>
 		public virtual void Hiding() {
 			this.gameObject.SetActive(false);
+			//取消模态窗体调用，必须是弹出窗体
+			if (_CurrentUIType.UIForms_Type == UIFormType.PopUp) {
+				UIMaskMgr.GetInstance().CancelMaskWindow();
+			}
 		}
 
 		/// <summary>
@@ -68,6 +76,10 @@ namespace SUIFW {
 		/// </summary>
 		public virtual void Redisplay() {
 			this.gameObject.SetActive(true);
+			//取消模态窗体调用，必须是弹出窗体
+			if (_CurrentUIType.UIForms_Type == UIFormType.PopUp) {
+				UIMaskMgr.GetInstance().SetMaskWindow(this.gameObject, _CurrentUIType.UIForms_LucencyType);
+			}
 		}
 
 		/// <summary>
@@ -77,8 +89,56 @@ namespace SUIFW {
 			this.gameObject.SetActive(false);
 		}
 
+		#endregion
+
+
+		#region 封装子类常用的方法
+
+		/// <summary>
+		/// 注册按钮事件
+		/// （将方法的委托作为参数传给方法）
+		/// </summary>
+		/// <param name="buttonName">按钮节点的名称</param>
+		/// <param name="delVoidDelegate">委托：需要注册的方法</param>
+		protected void RigisterButtonObjectEvent(string buttonName, EventTriggerListener.VoidDelegate delVoidDelegate) {
+			GameObject goButton = UnityHelper.FindChildNode(gameObject, buttonName).gameObject;
+			//给按钮结点注册方法
+			if (goButton != null) {
+				EventTriggerListener.GetListener(goButton).onClick += delVoidDelegate;
+			}
+		}
+
+		/// <summary>
+		/// 打开UI窗体
+		/// </summary>
+		/// <param name="uiFormName"></param>
+		protected void OpenUIForm(string uiFormName){
+			UIManager.GetInstance().OpenUIForm(uiFormName);
+		}
+
+		/// <summary>
+		/// 关闭UI窗体
+		/// </summary>
+		/// <param name="uiFormName"></param>
+		//protected void CloseUIForm(string uiFormName) {
+		//	UIManager.GetInstance().CloseUIForm(uiFormName);
+		//}
+		protected void CloseUIForm(){
+			string strUIFormName = string.Empty;	//处理后的UIForm的名称
+			int intPosition = -1;
+			strUIFormName =  GetType().ToString();	//命名空间+类的名称
+			intPosition = strUIFormName.IndexOf(".");
+			if (intPosition != -1) {
+				//去掉字符串中“.”之前的部分。
+				strUIFormName = strUIFormName.Substring(intPosition + 1);
+			}
+
+			UIManager.GetInstance().CloseUIForm(strUIFormName);
+		}
+
 
 		#endregion
+
 
 
 	}

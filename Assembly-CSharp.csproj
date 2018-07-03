@@ -61,24 +61,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\DemoProject\HeroInfoUIForm.cs" />
     <Compile Include="Assets\Scripts\DemoProject\LoginUIForm.cs" />
     <Compile Include="Assets\Scripts\DemoProject\MajorCityUIForm.cs" />
     <Compile Include="Assets\Scripts\DemoProject\MarketUIForm.cs" />
+    <Compile Include="Assets\Scripts\DemoProject\ProjectConst.cs" />
     <Compile Include="Assets\Scripts\DemoProject\SelectHeroUIForm.cs" />
     <Compile Include="Assets\Scripts\DemoProject\StartProject.cs" />
     <Compile Include="Assets\Scripts\SUIFW\BaseUIForm.cs" />
+    <Compile Include="Assets\Scripts\SUIFW\Config\IconfigMgr.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Config\SysDefine.cs" />
     <Compile Include="Assets\Scripts\SUIFW\EventAndMessage\EventTriggerListener.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Help\ResourcesMgr.cs" />
+    <Compile Include="Assets\Scripts\SUIFW\Help\UIMaskMgr.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Help\UnityHelper.cs" />
     <Compile Include="Assets\Scripts\SUIFW\Log\Log.cs" />
     <Compile Include="Assets\Scripts\SUIFW\UIManager.cs" />
     <Compile Include="Assets\Scripts\SUIFW\UIType.cs" />
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/【My Document】/My Projects/Unity Projects/UIFW_Demo/UIFramework/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
+    <Compile Include="Assets\Test\TestJson\BreezeKatana.cs" />
+    <Compile Include="Assets\Test\TestJson\BreezeSaber.cs" />
+    <Compile Include="Assets\Test\TestJson\TestJson.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/【My Document】/My Projects/Unity Projects/UIFW_Demo/UIFramework/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>D:/【My Document】/My Projects/Unity Projects/UIFW_Demo/UIFramework/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity3D/2018.1.6f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -311,6 +318,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>D:/Unity3D/2018.1.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Resources\LauguageJSONConfig.json" />
+    <None Include="Assets\Resources\LauguageJSONConfig_CN.json" />
+    <None Include="Assets\Resources\SysConfigInfo.json" />
+    <None Include="Assets\Resources\UIFormsConfigInfo.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
