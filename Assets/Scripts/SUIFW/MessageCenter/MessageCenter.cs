@@ -53,6 +53,7 @@ namespace SUIFW {
 			DicMessages[messageType] += handler;
 		}
 
+
 		/// <summary>
 		/// 公共方法：取消消息的监听
 		/// </summary>
@@ -72,6 +73,7 @@ namespace SUIFW {
 				DicMessages.Clear();
 			}
 		}
+
 
 		/// <summary>
 		/// 公共方法：发送消息

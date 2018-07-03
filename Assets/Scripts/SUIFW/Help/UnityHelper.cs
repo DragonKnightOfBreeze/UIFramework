@@ -33,17 +33,21 @@ namespace SUIFW {
 		/// <param name="childName">指定的子对象名字</param>
 		/// <returns>要查找的子对象的方位</returns>
 		public static Transform FindChildNode(GameObject goParent, string childName){
+			//TODO 算法可能还有问题
 			//查找直接的子节点
 			Transform searchTra = goParent.transform.Find(childName);	
 			//如果还没有查找到
 			if (searchTra == null) {
-				////如果还有子节点
-				//if (goParent.transform.childCount != 0) {
+				//如果还有子节点
 					foreach (Transform tra in goParent.transform) {
-						searchTra =  FindChildNode(tra.gameObject, childName);
+						if (goParent.transform.childCount != 0) {
+							searchTra = FindChildNode(tra.gameObject, childName);
+							if (searchTra && searchTra.name == childName) {
+								return searchTra;
+							}
+							
+						}
 					}
-				//}
-				//return null;
 			}
 			return searchTra;
 		}

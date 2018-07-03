@@ -27,6 +27,7 @@ namespace SUIFW {
 	///脚本：UI遮罩面板管理器
 	///</summary>
 	public class UIMaskMgr : MonoBehaviour {
+
 		/* 字段 */
 		//本脚本私有单例
 		private static UIMaskMgr _Instance;
@@ -53,9 +54,9 @@ namespace SUIFW {
 			UnityHelper.AddChildNodeToParentNode(_TraUIScriptsNode,gameObject.transform);
 			//得到顶层面板和遮罩面板
 			_GoTopPanel = _GoCanvasRoot;
-			_GoUIMaskPanel = UnityHelper.FindChildNode(_GoCanvasRoot, "_UIMaskPanel").gameObject;
+			_GoUIMaskPanel = UnityHelper.FindChildNode(_GoCanvasRoot, SysDefine.GO_UIMaskPanel).gameObject;
 			//得到UI摄像机以及原始层深
-			_UICamera = GameObject.FindGameObjectWithTag("_UICamera").GetComponent<Camera>();
+			_UICamera = GameObject.FindGameObjectWithTag(SysDefine.TAG_UICamera).GetComponent<Camera>();
 			if (_UICamera != null) {
 				_OriginalUICameraDepth = _UICamera.depth;
 			} else {

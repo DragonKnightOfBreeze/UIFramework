@@ -15,19 +15,19 @@
 
 		{
 			"Key": "MajorCityUIForm",
-			"Value": "Prefabs/UI/SelectHeroUIForm"
+			"Value": "Prefabs/UI/MajorCItyUIForm"
 		},
 		{
 			"Key": "MarketUIForm",
-			"Value": "Prefabs/UI/SelectHeroUIForm"
+			"Value": "Prefabs/UI/MarketUIForm"
 		},
 		{
 			"Key": "ItemInfoUIForm",
 			"Value": "Prefabs/UI/ItemInfoUIForm"
 		},
 		{
-			"Key": "ConfirmForms",
-			"Value": "Prefabs/UI/ItemsInfoUIForm"
+			"Key": "ConfirmForm",
+			"Value": "Prefabs/UI/ConfimForm"
 		}
 	]
 }

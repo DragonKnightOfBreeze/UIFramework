@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114408541802445440}
   - component: {fileID: 114741523193546854}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Btn_LegArmour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114282249799804530}
   - component: {fileID: 114652901154028788}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Btn_Boots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 114214803611134178}
   - component: {fileID: 114982442695957408}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Btn_Staff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 114664741960209380}
   - component: {fileID: 114733185550985760}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Btn_Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 114942248905243442}
   - component: {fileID: 114414538847021220}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Btn_Armour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -497,6 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e92fa441f3cfaa4f88070b49a35c1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Txt_Title: {fileID: 114421986695342342}
 --- !u!114 &114741523193546854
 MonoBehaviour:
   m_ObjectHideFlags: 1

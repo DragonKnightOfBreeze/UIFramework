@@ -17,6 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SUIFW;
 using UnityEngine;
+using UnityEngine.UI;
 
 //using Kernel;
 //using Global;
@@ -26,6 +27,9 @@ namespace DemoProject {
 	///脚本：选择英雄窗体管理
 	///</summary>
 	public class SelectHeroUIForm : BaseUIForm {
+
+		public Button Btn_Confirm;
+
 
 		public void Awake(){
 			//窗体的性质
@@ -40,6 +44,11 @@ namespace DemoProject {
 			RigisterButtonObjectEvent("Btn_Close", p=> {
 				CloseUIForm();
 			});
+		}
+
+
+		void Start(){
+			ShowText(Btn_Confirm,"Confirm");
 		}
 
 

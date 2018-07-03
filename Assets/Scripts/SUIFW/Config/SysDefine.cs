@@ -92,29 +92,47 @@ namespace SUIFW {
 	public static class SysDefine {
 		/* 路径常量 */
 		/// <summary>
-		/// 路径：画布
+		/// 路径：画布预制体
 		/// </summary>
 		public const string PATH_Canvas = "Prefabs/UI/Canvas";
 		/// <summary>
 		/// 路径：Json配置文件
 		/// </summary>
-		public const string PATH_UIFormsConfigInfo = "UIFormsConfigInfo";
+		public const string PATH_UIFormsConfigInfo = "UIFormsConfig";
 		/// <summary>
 		/// 路径：Log系统配置文件
 		/// </summary>
-		public const string PATH_SysConfigInfo = "SysConfigInfo";
+		public const string PATH_LogConfig = "LogConfig";
+		/// <summary>
+		/// 路径：Log系统配置文件（中文）
+		/// </summary>
+		public const string PATH_LanguageConfig_CN = "LanguageConfig_CN";
+		/// <summary>
+		/// 路径：Log系统配置文件（英文）
+		/// </summary>
+		public const string PATH_LanguageConfig_EN = "LanguageConfig_EN";
 
 		/* 标签常量 */
 		/// <summary>
 		/// 标签：画布
 		/// </summary>
 		public const string TAG_Canvas = "_Canvas";
-		
+		/// <summary>
+		/// 标签：UI摄像机
+		/// </summary>
+		public const string TAG_UICamera = "_UICamera";
+
+		/* 游戏对象名称常量 */
+		/// <summary>
+		/// 名称：UI遮罩面板
+		/// </summary>
+		public const string GO_UIMaskPanel = "_UIMaskPanel";
+
 		/* 节点常量 */
 		public const string NODE_Normal = "Normal";
 		public const string NODE_Fixed = "Fixed";
 		public const string NODE_PopUp = "PopUp";
-		public const string NODE_UIScripts = "ScriptsMgr";
+		public const string NODE_UIScripts = "_ScriptsMgr";
 
 		/* 遮罩管理器中的透明度常量 */
 		public const float UIMASK_LucencyColor_RGB = 255 / 255f;

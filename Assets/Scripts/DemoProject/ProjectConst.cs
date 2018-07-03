@@ -31,6 +31,8 @@ namespace DemoProject {
 		public const string UIFORM_Market = "MarketUIForm";
 		public const string UIFORM_SelectHero = "SelectHeroUIForm";
 		public const string UIFORM_HeroInfo = "HeroInfoUIForm";
-
+		public const string UIFORM_ItemInfo = "ItemInfoUIForm";
+		/* 常量类型：消息的类型 */
+		public const string MSGTYPE_Items = "Items";
 	}
 }

@@ -340,6 +340,14 @@ namespace SUIFW {
 		/// </summary>
 		/// <param name="uiFormName">打开的指定窗体的名称</param>
 		private void EnterUIForm_HideOther(string uiFormName) {
+			//+++把正在显示集合与栈集合中所有的窗体隐藏
+			foreach (BaseUIForm baseUI in _DicCurrentUIForms.Values) {
+				baseUI.Hiding();
+			}
+			foreach (BaseUIForm stackUI in _StaCurrentUIForms) {
+				stackUI.Hiding();
+			}
+
 			EnterUIForm(uiFormName);
 
 			//BaseUIForm baseUIForm;      //UI窗体基类
@@ -350,13 +358,13 @@ namespace SUIFW {
 			//if (baseUIForm == null)
 			//	return;
 
-			//+++把正在显示集合与栈集合中所有的窗体隐藏
-			foreach (BaseUIForm baseUI in _DicCurrentUIForms.Values) {
-				baseUI.Hiding();
-			}
-			foreach (BaseUIForm stackUI in _StaCurrentUIForms) {
-				stackUI.Hiding();
-			}
+			////+++把正在显示集合与栈集合中所有的窗体隐藏
+			//foreach (BaseUIForm baseUI in _DicCurrentUIForms.Values) {
+			//	baseUI.Hiding();
+			//}
+			//foreach (BaseUIForm stackUI in _StaCurrentUIForms) {
+			//	stackUI.Hiding();
+			//}
 
 			////把当前窗体，加载到“正在显示”的集合中，然后显示
 			//_DicAllUIForms.TryGetValue(uiFormName, out baseUIFormFromAll);

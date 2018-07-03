@@ -28,12 +28,6 @@
 {"Key":"ConfirmWindow",
 "Value":"确认窗口"},
 
-{"Key":"ClothDetailInfo",
-"Value":"盔甲详细信息："},
-
-{"Key":"ShoeDetailInfo",
-"Value":"战靴详细信息:"},
-
 {"Key":"Cancel",
 "Value":"取消"}
 ]
